@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# dotenv environment variables
+.env
+
+# Cloudinary credentials backup (if ever saved)
+cloudinary.js
+cloudinary.json
+
+# Uploaded files (if any temporarily stored locally)
+uploads/
+tmp/
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+*.suo
+*.njsproj
+*.sln
+
+# Optional npm cache
+.npm/
