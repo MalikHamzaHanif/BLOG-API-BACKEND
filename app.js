@@ -11,20 +11,11 @@ const routeNotFound = require('./middleware/routeNotFound.middleware')
 const authenticationMidleware = require('./middleware/authentication.middleware')
 const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
-const corsOptions = {
-    origin: [
-        'https://blog-api-frontend-phi.vercel.app',
-        'https://blog-api-frontend-db0qpwhih-malikhamzahanifs-projects.vercel.app'
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
-    exposedHeaders: ['Authorization']
-};
+
 
 app.set("trust proxy", 1);
-app.use(cors(corsOptions));
-app.options(/(.*)/, cors(corsOptions));
+app.use(cors());
+app.options(/(.*)/, cors());
 app.use(helmet())
 app.use(express.urlencoded({ extended: false }))
 
