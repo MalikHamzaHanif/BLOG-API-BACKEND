@@ -13,7 +13,7 @@ const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
 
 const corsOptions = {
-    origin: 'https://blog-api-frontend-phi.vercel.app',
+    origin: 'https://blog-api-frontend-pi.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
