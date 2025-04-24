@@ -13,7 +13,7 @@ const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
 const corsOptions = {
     origin: [
-        'https://blog-api-frontend-*.vercel.app',
+        'https://blog-api-frontend-phi.vercel.app',
         'https://blog-api-frontend-db0qpwhih-malikhamzahanifs-projects.vercel.app'
     ],
     credentials: true,
@@ -23,8 +23,8 @@ const corsOptions = {
 };
 
 app.set("trust proxy", 1);
-app.use(cors())
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
 app.use(helmet())
 app.use(express.urlencoded({ extended: false }))
 
