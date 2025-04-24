@@ -34,6 +34,11 @@ app.get('/', (req, res) => {
         fontend: 'https://blog-api-frontend-phi.vercel.app/'
     });
 });
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://blog-api-frontend-pi.vercel.app');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", authenticationMidleware, blogRouter)
 
