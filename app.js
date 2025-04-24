@@ -15,21 +15,17 @@ const PORT = process.env.PORT || 3000
 app.set("trust proxy", 1);
 app.use(cors());
 app.use(helmet())
+app.use(fileUpload({ useTempFiles: true }))
+app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use(fileUpload({ useTempFiles: true }));
-app.use(express.json())
 app.get('/', (req, res) => {
     res.status(200).json({
         message: 'Welcome to the Blog API.Wanna test apis? visit',
-        fontend: 'https://blog-api-frontend-phi.vercel.app/'
+        fontend: 'https://blog-api-frontend-pi.vercel.app/'
     });
 });
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://blog-api-frontend-pi.vercel.app');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-});
+
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", authenticationMidleware, blogRouter)
 
