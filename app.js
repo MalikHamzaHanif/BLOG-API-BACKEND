@@ -9,22 +9,33 @@ const blogRouter = require('./router/blog.router')
 const errorHandlerMiddleware = require('./middleware/errorHandler.middleware')
 const routeNotFound = require('./middleware/routeNotFound.middleware')
 const authenticationMidleware = require('./middleware/authentication.middleware')
-const helmet=require("helmet")
-const path = require('path')
+const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
+const corsOptions = {
+    origin: [
+        'https://blog-api-frontend-*.vercel.app',
+        'https://blog-api-frontend-db0qpwhih-malikhamzahanifs-projects.vercel.app'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    exposedHeaders: ['Authorization']
+};
+
 app.set("trust proxy", 1);
 app.use(cors())
+app.options('*', cors(corsOptions));
 app.use(helmet())
 app.use(express.urlencoded({ extended: false }))
 
 app.use(fileUpload({ useTempFiles: true }));
 app.use(express.json())
 app.get('/', (req, res) => {
-    res.status(200).json({ 
-      message: 'Welcome to the Blog API.Wanna test apis? visit',
-      fontend: 'https://blog-api-frontend-phi.vercel.app/' 
+    res.status(200).json({
+        message: 'Welcome to the Blog API.Wanna test apis? visit',
+        fontend: 'https://blog-api-frontend-phi.vercel.app/'
     });
-  });
+});
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", authenticationMidleware, blogRouter)
 
