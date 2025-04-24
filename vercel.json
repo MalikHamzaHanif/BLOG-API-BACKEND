@@ -19,7 +19,7 @@
                 "DELETE"
             ],
             "headers": {
-                "Access-Control-Allow-Origin": "https://blog-api-frontend-phi.vercel.app"
+                "Access-Control-Allow-Origin": ""
             }
         }
     ]
