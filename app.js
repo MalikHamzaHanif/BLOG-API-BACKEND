@@ -12,17 +12,8 @@ const authenticationMidleware = require('./middleware/authentication.middleware'
 const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
 
-const corsOptions = {
-    origin: 'https://blog-api-frontend-pi.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-};
-
 app.set("trust proxy", 1);
-app.use(cors(corsOptions));
-app.options(/('*')/, cors(corsOptions));
-
+app.use(cors());
 app.use(helmet())
 app.use(express.urlencoded({ extended: false }))
 
