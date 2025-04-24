@@ -19,6 +19,12 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(fileUpload({ useTempFiles: true }));
 app.use(express.json())
+app.get('/', (req, res) => {
+    res.status(200).json({ 
+      message: 'Welcome to the Blog API.Wanna test apis? visit',
+      fontend: 'https://blog-api-frontend-phi.vercel.app/' 
+    });
+  });
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", authenticationMidleware, blogRouter)
 
