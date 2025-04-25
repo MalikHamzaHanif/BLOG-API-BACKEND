@@ -14,10 +14,11 @@ const registerUser = asyncWrapper(async (req, res) => {
     if (!name || !email || !password) {
         throw new BAD_REQUEST("Please fill all the fields.");
     }
-    if (password.lenght<6) {
+    
+    if (password.length<6) {        
         throw new BAD_REQUEST("Password length should be atleast 6 chars");
     }
-    if (password.lenght>15) {
+    if (password.length>15) {
         throw new BAD_REQUEST("Password length can not be greator then 15 chars");
     }
 
@@ -156,7 +157,7 @@ const updateUser = asyncWrapper(async (req, res) => {
     if (name) {
         updateObject.name = name
     }
-    if (newPassword.lenght<6&&newPassword.lenght>15) {
+    if (newPassword.length<6&&newPassword.length>15) {
 
         throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
@@ -271,7 +272,8 @@ const setNewPassword = asyncWrapper(async (req, res) => {
     if(!newPassword){
         throw new BAD_REQUEST("new password is required")
     }
-    if (newPassword.lenght<6&&newPassword.lenght>15) {
+    
+    if (newPassword.length<6&&newPassword.length>15) {
 
         throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
