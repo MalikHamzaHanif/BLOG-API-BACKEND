@@ -15,8 +15,6 @@ cloudinary.json
 
 # Uploaded files (if any temporarily stored locally)
 uploads/
-tmp/
-*.tmp
 
 # OS-specific files
 .DS_Store
