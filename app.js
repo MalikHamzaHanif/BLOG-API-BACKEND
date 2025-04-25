@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000
 
 app.set("trust proxy", 1);
 app.use(cors());
-app.options(/('*')/,cors())
+app.options(/(.*)/,cors())
 app.use(helmet())
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.json())
