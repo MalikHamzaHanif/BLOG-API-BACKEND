@@ -53,16 +53,16 @@ const loginUser = asyncWrapper(async (req, res) => {
         const checkToken = await token.findOne({ createdBy: user._id })
         if (checkToken) {
             await sendEmail(email, "Verify your email please", `${process.env.BASE_URL}/user/${user._id}/verify/${checkToken.token}`)
-            return res.status(StatusCodes.OK).json({
-                success: true, data: {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                success: false, data: {
                     msg: "Your email is not verified please open your email and verify."
                 }
             })
         }
         const newToken = await token.create({ createdBy: user._id, token: crypto.randomBytes(32).toString("hex") })
         await sendEmail(email, "Verify your email please", `${process.env.BASE_URL}/user/${user._id}/verify/${newToken.token}`)
-        return res.status(StatusCodes.OK).json({
-            success: true, data: {
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            success: false, data: {
                 msg: "Your email is not verified please open your email and verify."
             }
         })
