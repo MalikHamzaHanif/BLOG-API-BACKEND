@@ -13,8 +13,20 @@ const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
 
 app.set("trust proxy", 1);
-app.use(cors());
-app.options(/(.*)/,cors())
+const corsOptions = {
+    origin: [
+        'https://blog-api-frontend-pi.vercel.app',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With'
+    ]
+};
+
+app.use(cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
 app.use(helmet())
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.json())
