@@ -223,6 +223,9 @@ const sendForgotPasswordEmail = asyncWrapper(async (req, res) => {
     if (userExist.email === "test@example.com") {
         throw new BAD_REQUEST("You are not allowed to modify test user credentials.");
     }
+    if (userExist.isVerified === false) {
+        throw new BAD_REQUEST("first of all verify your email");
+    }
     const check = await passwordresetModel.findOne({ createdBy: userExist._id })
     if (!check) {
         const token = crypto.randomBytes(32).toString("hex")
