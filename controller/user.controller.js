@@ -14,10 +14,10 @@ const registerUser = asyncWrapper(async (req, res) => {
     if (!name || !email || !password) {
         throw new BAD_REQUEST("Please fill all the fields.");
     }
-    if (password.lenght>6) {
+    if (password.lenght<6) {
         throw new BAD_REQUEST("Password length should be atleast 6 chars");
     }
-    if (password.lenght<15) {
+    if (password.lenght>15) {
         throw new BAD_REQUEST("Password length can not be greator then 15 chars");
     }
 
