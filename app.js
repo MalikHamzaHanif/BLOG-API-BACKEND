@@ -31,9 +31,13 @@ app.use((req, res, next) => {
     console.log('Request headers:', req.headers);
     console.log('Request method:', req.method);
     next();
-  });
+});
 app.use(helmet())
-app.use(fileUpload({ useTempFiles: true }))
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp', 
+
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
