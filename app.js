@@ -12,7 +12,6 @@ const authenticationMidleware = require('./middleware/authentication.middleware'
 const helmet = require("helmet")
 const PORT = process.env.PORT || 3000
 
-app.set("trust proxy", 1);
 const corsOptions = {
     origin: [
         'https://blog-api-frontend-pi.vercel.app',
@@ -25,8 +24,14 @@ const corsOptions = {
     ]
 };
 
+app.set("trust proxy", 1);
 app.use(cors(corsOptions));
 app.options(/(.*)/, cors(corsOptions));
+app.use((req, res, next) => {
+    console.log('Request headers:', req.headers);
+    console.log('Request method:', req.method);
+    next();
+  });
 app.use(helmet())
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.json())
