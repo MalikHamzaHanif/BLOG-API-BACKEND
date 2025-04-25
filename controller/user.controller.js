@@ -157,8 +157,7 @@ const updateUser = asyncWrapper(async (req, res) => {
     if (name) {
         updateObject.name = name
     }
-    if (newPassword.length<6&&newPassword.length>15) {
-
+    if (newPassword.length<6 || newPassword.length>15) {
         throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
     if (newPassword && oldPassword) {
