@@ -27,11 +27,6 @@ const corsOptions = {
 app.set("trust proxy", 1);
 app.use(cors(corsOptions));
 app.options(/(.*)/, cors(corsOptions));
-app.use((req, res, next) => {
-    console.log('Request headers:', req.headers);
-    console.log('Request method:', req.method);
-    next();
-});
 app.use(helmet())
 app.use(fileUpload({
     useTempFiles: true,
