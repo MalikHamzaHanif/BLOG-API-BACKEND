@@ -156,6 +156,10 @@ const updateUser = asyncWrapper(async (req, res) => {
     if (name) {
         updateObject.name = name
     }
+    if (newPassword.lenght<6&&newPassword.lenght>15) {
+
+        throw new BAD_REQUEST("Password length must be in between 6 and 15");
+    }
     if (newPassword && oldPassword) {
         const isPrevPasswordCorrect = await user.verifyUser(oldPassword)
         if (!isPrevPasswordCorrect) {
@@ -266,6 +270,10 @@ const setNewPassword = asyncWrapper(async (req, res) => {
     const{newPassword}=req.body
     if(!newPassword){
         throw new BAD_REQUEST("new password is required")
+    }
+    if (newPassword.lenght<6&&newPassword.lenght>15) {
+
+        throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
     const user=await userModel.findOne({_id:id})
     if(!user){
