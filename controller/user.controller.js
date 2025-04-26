@@ -14,11 +14,11 @@ const registerUser = asyncWrapper(async (req, res) => {
     if (!name || !email || !password) {
         throw new BAD_REQUEST("Please fill all the fields.");
     }
-    
-    if (password.length<6) {        
+
+    if (password.length < 6) {
         throw new BAD_REQUEST("Password length should be atleast 6 chars");
     }
-    if (password.length>15) {
+    if (password.length > 15) {
         throw new BAD_REQUEST("Password length can not be greator then 15 chars");
     }
 
@@ -107,7 +107,7 @@ const verifyUserStatus = asyncWrapper(async (req, res) => {
         user.isVerified = true;
         await user.save()
         res.status(StatusCodes.OK).json({
-            success: true, data: {
+            sucess: true, data: {
                 msg: "User got verified successfully"
             }
         })
@@ -157,7 +157,7 @@ const updateUser = asyncWrapper(async (req, res) => {
     if (name) {
         updateObject.name = name
     }
-    if (newPassword.length<6 || newPassword.length>15) {
+    if (newPassword.length < 6 || newPassword.length > 15) {
         throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
     if (newPassword && oldPassword) {
@@ -244,14 +244,14 @@ const sendForgotPasswordEmail = asyncWrapper(async (req, res) => {
 })
 const checkResetPasswordRequest = asyncWrapper(async (req, res) => {
     const { id, token } = req.params
-    
-    
+
+
     if (!id || !token) {
         throw new BAD_REQUEST("invailed link");
     }
-    const passwordResetTokenExist = await passwordresetModel.findOne({ createdBy: id, token:token });
-   
-    
+    const passwordResetTokenExist = await passwordresetModel.findOne({ createdBy: id, token: token });
+
+
     if (!passwordResetTokenExist) {
         throw new BAD_REQUEST("Invailed link.Please make another password reset request")
     }
@@ -270,22 +270,22 @@ const setNewPassword = asyncWrapper(async (req, res) => {
     if (!passwordResetTokenExist) {
         throw new BAD_REQUEST("Invailed link.Password reset request failed.try again")
     }
-    const{newPassword}=req.body
-    if(!newPassword){
+    const { newPassword } = req.body
+    if (!newPassword) {
         throw new BAD_REQUEST("new password is required")
     }
-    
-    if (newPassword.length<6&&newPassword.length>15) {
+
+    if (newPassword.length < 6 && newPassword.length > 15) {
 
         throw new BAD_REQUEST("Password length must be in between 6 and 15");
     }
-    const user=await userModel.findOne({_id:id})
-    if(!user){
+    const user = await userModel.findOne({ _id: id })
+    if (!user) {
         throw new BAD_REQUEST("No user found")
     }
-    user.password=newPassword
+    user.password = newPassword
     await user.save();
-    await passwordresetModel.findOneAndDelete({createdBy:id})
+    await passwordresetModel.findOneAndDelete({ createdBy: id })
     return res.status(StatusCodes.OK).json({
         success: true, data: {
             msg: "Password updated successfully"
